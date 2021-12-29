@@ -1,0 +1,45 @@
+WITH country_purchases AS(
+SELECT countries.name as country_name, items.name as item_name,
+	CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END as income
+FROM purchases
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+	JOIN users USING(userid)
+	JOIN countries USING(countrycode)
+),
+top_country_items AS(
+SELECT country_name, item_name, SUM(income) as total_sum_items,
+	DENSE_RANK() OVER (PARTITION BY country_name ORDER BY SUM(income) DESC) as rank
+FROM country_purchases
+GROUP BY country_name, item_name
+)
+SELECT country_name, item_name, rank
+FROM top_country_items
+WHERE rank <= 3
+
+-------------------------------------------------------------------------------------------------
+
+"Belarus             "	"Macbook Air 13                          "	1
+"Belarus             "	"iPhone XS                               "	2
+"Belarus             "	"Bosch WHA222X1OE                        "	3
+"China               "	"iPhone XS                               "	1
+"China               "	"Samsung UE50AU9000U                     "	2
+"China               "	"Samsung Galaxy Tab S7                   "	3
+"Germany             "	"Samsung UE50AU9000U                     "	1
+"Germany             "	"Samsung Galaxy Tab S7                   "	2
+"Germany             "	"iPhone XS                               "	3
+"Moldova             "	"Macbook Air 13                          "	1
+"Moldova             "	"Samsung Galaxy Tab S7                   "	2
+"Moldova             "	"iPhone XS                               "	3
+"Russian Federation  "	"iPhone XS                               "	1
+"Russian Federation  "	"Macbook Air 13                          "	2
+"Russian Federation  "	"Samsung UE50AU9000U                     "	3
+"Ukraine             "	"Macbook Air 13                          "	1
+"Ukraine             "	"iPhone XS                               "	2
+"Ukraine             "	"Bosch WHA222X1OE                        "	3
+"United States       "	"Macbook Air 13                          "	1
+"United States       "	"iPhone XS                               "	2
+"United States       "	"Samsung UE50AU9000U                     "	3

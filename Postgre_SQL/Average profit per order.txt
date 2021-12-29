@@ -1,0 +1,23 @@
+WITH orders_income as (
+SELECT ordernumber, 
+	CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END as income
+FROM purchases
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+)
+SELECT 
+	ROUND(
+	(SELECT SUM(income) FROM orders_income) / 
+	(SELECT COUNT(*) FROM (
+			SELECT COUNT(*) FROM orders_income GROUP BY ordernumber
+		) as t1
+	), 2) as mean
+FROM orders_income
+LIMIT 1
+
+------------------------------------------------------------------------------------------------
+
+467923.07

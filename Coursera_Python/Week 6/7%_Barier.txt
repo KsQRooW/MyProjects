@@ -1,0 +1,8 @@
+PARTIES:
+Party one
+Party two
+Party three
+VOTES:
+Party one
+Party one
+Party three

@@ -1,0 +1,12 @@
+SELECT COALESCE(discount, 0) as discount, SUM(purchases.amount) as total_amount,
+	ROUND(SUM(purchases.amount)::numeric / (
+			SELECT SUM(amount) FROM purchases) * 100, 2) as percents 
+FROM purchases 
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+GROUP BY COALESCE(discount, 0)
+HAVING COALESCE(discount, 0) = 0
+
+---------------------------------------------------------------------------------
+
+0	2360	50.82

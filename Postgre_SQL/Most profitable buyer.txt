@@ -1,0 +1,23 @@
+WITH purchases_income AS (
+SELECT nickname,
+	CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END as income
+FROM purchases
+	JOIN users USING(userid)
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+)
+SELECT nickname, total_income_per_person
+FROM (
+SELECT nickname, SUM(income) as total_income_per_person, 
+	DENSE_RANK() OVER (ORDER BY SUM(income) DESC) as rank
+FROM purchases_income
+GROUP BY nickname
+) as t1
+WHERE rank = 1
+
+-------------------------------------------------------------------------------------------------
+
+"Tyron               "	9172189.71

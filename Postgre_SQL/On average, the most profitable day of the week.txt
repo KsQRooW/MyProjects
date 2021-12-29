@@ -1,0 +1,24 @@
+WITH orders_of_weekday AS (
+SELECT ordernumber, 
+	CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END as income,
+	to_char(purchasedate, 'Day') as name_day_of_week
+FROM purchases
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+)
+SELECT *
+FROM (
+	SELECT name_day_of_week, ROUND(SUM(income) / COUNT(ordernumber), 2),
+		DENSE_RANK() OVER(
+			ORDER BY ROUND(SUM(income) / COUNT(ordernumber), 2) DESC) as rank
+	FROM orders_of_weekday
+	GROUP BY name_day_of_week
+) as t1
+WHERE rank = 1
+
+--------------------------------------------------------------------------------------------------
+
+"Saturday "	185889.05

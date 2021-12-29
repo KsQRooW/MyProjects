@@ -1,0 +1,32 @@
+WITH range_age (age1, age2, age3, age4) AS (
+   values (0, 20, 40, 60)
+),
+top_popular_items AS (
+SELECT 
+	CASE WHEN age BETWEEN age1 AND age2 THEN '0_20 age category'
+		 WHEN age BETWEEN age2 + 1 AND age3 THEN '20_40 age category'
+		 WHEN age BETWEEN age3 + 1 AND age4 THEN '40_60 age category'
+		 ELSE '60+ age category'
+	END as age_category,
+	itemid, SUM(amount) as sum_items_amount
+FROM purchases
+	JOIN users USING(userid), range_age
+GROUP BY age_category, itemid
+ORDER BY age_category
+)
+SELECT age_category, items.name
+FROM (
+	SELECT age_category, itemid, sum_items_amount,
+		DENSE_RANK() OVER (
+			PARTITION BY age_category ORDER BY sum_items_amount DESC) as rank
+	FROM top_popular_items
+) as t1 JOIN items USING(itemid)
+WHERE rank = 1
+ORDER BY age_category
+
+------------------------------------------------------------------------------------------
+
+"0_20 age category"	"Samsung WF8590NLW9                      "
+"20_40 age category"	"Xiaomi Mi Smart Band 6                  "
+"40_60 age category"	"Macbook Air 13                          "
+"60+ age category"	"Samsung Galaxy Tab S7                   "

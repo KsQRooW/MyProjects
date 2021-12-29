@@ -1,0 +1,41 @@
+WITH moths_incomes as (
+SELECT date_part('Year', purchasedate) as year,
+	to_char(purchasedate, 'Month') as month,
+	gender, 
+	SUM(CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END) as income
+FROM purchases
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+	JOIN users USING(userid)
+GROUP BY year, month, gender
+ORDER BY year, month
+),
+difference_table as (
+SELECT month, income,
+	income - LAG(income, 1, 0) OVER (PARTITION BY year, month ORDER BY year, month) as difference
+FROM moths_incomes
+),
+most_buyer_per_month as (
+SELECT month, income,
+	CASE WHEN difference > 0 THEN 0 
+		 WHEN difference < 0 THEN 1
+		 ELSE null
+	END as most_buyer
+FROM difference_table
+WHERE income <> difference
+)
+SELECT month 
+FROM most_buyer_per_month
+GROUP BY month
+HAVING SUM(most_buyer) > 1
+ORDER BY month
+
+------------------------------------------------------------------------------------------------------
+
+"February "
+"January  "
+"July     "
+"September"

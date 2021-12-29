@@ -1,0 +1,26 @@
+WITH purchases_income AS(
+SELECT items.name,
+	CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END as income
+FROM purchases 
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+)
+SELECT name, income
+FROM (
+SELECT name, SUM(income) as income, DENSE_RANK() OVER (ORDER BY SUM(income) DESC) as top
+FROM purchases_income
+GROUP BY name
+) as t1
+WHERE top <= 5
+
+-------------------------------------------------------------------------------------------------
+
+"Macbook Air 13                          "	30965364.00
+"iPhone XS                               "	24040800.00
+"Samsung UE50AU9000U                     "	17970058.33
+"Samsung Galaxy Tab S7                   "	17498880.00
+"Bosch WHA222X1OE                        "	13011027.00
+

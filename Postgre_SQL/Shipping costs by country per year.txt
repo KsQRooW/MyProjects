@@ -1,0 +1,29 @@
+WITH delivery_year as (
+SELECT DISTINCT ON (ordernumber) date_part('Year', purchasedate) as year, countries.name, 
+	CASE WHEN deliverycost='NaN' THEN 0
+		 ELSE deliverycost
+	END as deliverycost
+FROM purchases
+	JOIN users USING(userid)
+	JOIN countries USING(countrycode)
+)
+SELECT year, name, SUM(deliverycost) as total_deliverycost
+FROM delivery_year
+GROUP BY year, name
+HAVING SUM(deliverycost) <> 0
+ORDER BY year, total_deliverycost DESC
+
+----------------------------------------------------------------------------------------
+
+2019	"United States       "	10500.00
+2019	"Germany             "	2800.00
+2019	"China               "	1650.00
+2019	"Moldova             "	900.00
+2020	"United States       "	10500.00
+2020	"Germany             "	3150.00
+2020	"China               "	2250.00
+2020	"Moldova             "	1000.00
+2021	"United States       "	7500.00
+2021	"Germany             "	5250.00
+2021	"China               "	2700.00
+2021	"Moldova             "	1200.00

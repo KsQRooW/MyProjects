@@ -1,0 +1,19 @@
+WITH purchases_amount AS (
+SELECT items.name, SUM(purchases.amount) as total_amount, 
+	DENSE_RANK() OVER (ORDER BY SUM(purchases.amount) DESC) as rank
+FROM purchases 
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+GROUP BY items.name
+)
+SELECT name, total_amount
+FROM purchases_amount
+WHERE rank <= 5
+
+-----------------------------------------------------------------------
+
+"Xiaomi Mi Smart Band 6                  "	581
+"Samsung Galaxy A12                      "	522
+"iPhone XS                               "	504
+"Samsung WF8590NLW9                      "	476
+"Xiaomi Dreame D9                        "	451

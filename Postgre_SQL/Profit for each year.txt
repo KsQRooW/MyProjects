@@ -1,0 +1,21 @@
+WITH orders_of_year AS (
+SELECT  
+	CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END as income,
+	date_part('year', purchasedate) as year
+FROM purchases
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+)
+SELECT year, SUM(income) as total
+FROM orders_of_year
+GROUP BY year
+ORDER BY year
+
+-------------------------------------------------------------------------------------------------
+
+2019	45438511.54
+2020	47623615.56
+2021	47314795.35

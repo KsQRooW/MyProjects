@@ -1,0 +1,38 @@
+WITH income_days as (
+SELECT
+	date_part('Year', purchasedate) as year,
+	purchasedate, 
+	SUM(CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END) as income
+FROM purchases
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+GROUP BY purchasedate
+)
+SELECT purchasedate, income
+FROM (
+	SELECT purchasedate, income,
+		DENSE_RANK() OVER (PARTITION BY year ORDER BY income DESC) as rank
+	FROM income_days
+) as t1
+WHERE rank <= 5
+
+-------------------------------------------------------------------------------------------------
+
+"2019-01-29"	1734357.23
+"2019-12-20"	1371862.93
+"2019-05-17"	1186237.50
+"2019-09-09"	1174716.40
+"2019-04-07"	1161788.28
+"2020-04-18"	2047692.66
+"2020-02-09"	1835218.89
+"2020-03-24"	1515978.80
+"2020-12-18"	1331368.45
+"2020-05-07"	1277446.94
+"2021-05-26"	2104512.86
+"2021-08-02"	1716796.33
+"2021-01-30"	1282715.26
+"2021-10-08"	1130190.17
+"2021-02-02"	1128821.51

@@ -1,0 +1,18 @@
+SELECT gender, name, total_amount
+FROM (
+	SELECT gender, types.name, SUM(purchases.amount) as total_amount,
+		DENSE_RANK() OVER(
+			PARTITION BY gender 
+			ORDER BY SUM(purchases.amount) DESC) as rank
+	FROM purchases 
+		JOIN users USING(userid)
+		JOIN items USING(itemid)
+		JOIN types USING(typeid)
+	GROUP BY gender, types.name
+) as t1
+WHERE rank = 1
+
+-------------------------------------------------------------------------
+
+"F"	"Mobile phone        "	722
+"M"	"Mobile phone        "	738

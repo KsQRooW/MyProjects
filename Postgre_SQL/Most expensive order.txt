@@ -1,0 +1,24 @@
+WITH receipt as(
+SELECT ordernumber, SUM(income) as sum_income
+FROM (
+	SELECT ordernumber,
+		CASE WHEN types.discount IS NULL OR types.discount = 0 
+				THEN ROUND(items.price * purchases.amount, 2)
+			 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+		END as income
+	FROM purchases
+		JOIN items USING(itemid)
+		JOIN types USING(typeid)
+) as t1
+GROUP BY ordernumber
+)
+SELECT DISTINCT
+	(SELECT ordernumber 
+	 FROM receipt 
+	 WHERE sum_income = (SELECT MAX(sum_income) FROM receipt)),
+	(SELECT MAX(sum_income) FROM receipt) as max_sum_income 
+FROM receipt
+
+----------------------------------------------------------------------------------------------------------
+
+246	1716796.33

@@ -1,0 +1,24 @@
+WITH country_purchases as(
+SELECT countries.name, 
+	CASE WHEN types.discount IS NULL OR types.discount = 0 
+			THEN ROUND(items.price * purchases.amount, 2)
+		 ELSE ROUND(((items.price / 100) * (100 - types.discount)) * purchases.amount, 2)
+	END as income
+FROM purchases
+	JOIN users USING(userid)
+	JOIN countries USING(countrycode)
+	JOIN items USING(itemid)
+	JOIN types USING(typeid)
+)
+SELECT name, max_total_sum_income
+FROM (
+	SELECT name, SUM(income) as total_sum_income,
+		MAX(SUM(income)) OVER () as max_total
+	FROM country_purchases
+	GROUP BY name
+) as t1
+WHERE max_total_sum_income = total_sum_income
+
+---------------------------------------------------------------------------------------------------
+
+"Russian Federation  "	28518008.02

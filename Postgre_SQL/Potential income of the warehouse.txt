@@ -1,0 +1,11 @@
+SELECT 
+	SUM(CASE WHEN discount IS NULL OR discount = 0 
+			THEN ROUND(price * amount, 2)
+		 ELSE ROUND(((price / 100) * (100 - discount)) * amount, 2)
+	END) as potential_income
+FROM items
+	JOIN types USING(typeid)
+
+---------------------------------------------------------------------------
+
+15710114.56
