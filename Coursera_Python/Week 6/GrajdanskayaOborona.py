@@ -45,9 +45,7 @@ if m > 1:
                 k = j
                 break
             else:
-                if j != m - 2:
-                    continue
-                elif j == m - 2:
+                if j == m - 2:
                     x.append((selSort[i][1], ubSort[j + 1][1]))
     x.sort()
     for i in range(0, n):
