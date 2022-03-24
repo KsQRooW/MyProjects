@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{sign_zodiac|title}}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'horoscope/css/info_zodiac.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'includes/navbar.html' %}
+
+    <h1>Приложение гороскоп</h1>
+    {% if description.description %}
+        <h2>{{description.description}}</h2>
+    {% else %}
+        <h2>Не существует знака зодиака {{description}}</h2>
+    {% endif %}
+{% endblock %}
