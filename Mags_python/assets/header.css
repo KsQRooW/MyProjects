@@ -1,0 +1,38 @@
+
+.test-1 {
+/* Геометрия и положение */
+    position: absolute;
+    top: 10%;
+    left: 25%;
+    width: 25%;
+    border: 10px ridge  #CC6633;
+    background-color: RGB(16, 201, 240);
+    padding: 20px;
+    display: block;
+}
+
+#t1 {
+/* Геометрия и положение */
+    position: absolute;
+    top: 10%;
+    width: 25%;
+/* Оформление */
+    border: 10px ridge  #CC6633;
+    background-color: RGB(16, 201, 240);
+    padding: 20px;
+    display: block;
+    text-align: center
+}
+
+#t2 {
+/* Геометрия и положение */
+    position: absolute;
+    top: 10%;
+    left: 40%;
+    width: 35%;
+    border: 10px ridge  #CC6633;
+    background-color: RGB(16, 201, 240);
+    padding: 20px;
+    display: block;
+}
+

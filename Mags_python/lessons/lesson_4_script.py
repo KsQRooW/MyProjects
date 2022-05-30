@@ -42,7 +42,7 @@ def prsi(s):
 
 cnv = {0: prsi, 1: str, 2: str, 3: prsf, 4: prsf}
 
-S = np.loadtxt('AUTO21053A.csv', delimiter=';', converters=cnv,
+S = np.loadtxt('../AUTO21053A.csv', delimiter=';', converters=cnv,
                encoding='utf-8', dtype='O')
 
 
