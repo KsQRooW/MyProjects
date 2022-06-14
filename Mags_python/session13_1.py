@@ -22,7 +22,7 @@ import plotly.express as px
 import pandas as pd
 
 # # Демонстрация таблицы
-# df = pd.read_excel("./assets/AUTO21053A.xlsx")
+# df = pd.read_csv("./assets/insurance.csv")
 #
 # app = Dash(__name__)
 #
@@ -37,7 +37,7 @@ import pandas as pd
 #     app.run_server(debug=True)
 
 # # Демонстрация таблицы с выбором строк
-# df = pd.read_excel("AUTO21053A.xlsx")
+# df = pd.read_csv("./assets/insurance.csv")
 #
 # app = Dash(__name__)
 #
@@ -75,13 +75,13 @@ import pandas as pd
 # if __name__ == '__main__':
 #     app.run_server(debug=True)
 
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 # Вывод таблицы кусочками
 
 app = Dash(__name__)
 
-df = pd.read_excel("./assets/AUTO21053A.xlsx")
+df = pd.read_csv("./assets/insurance.csv")
 
 PAGE_SIZE = 10
 
@@ -102,14 +102,14 @@ app.layout = tbl.DataTable(
     Input('datatable-paging', "page_size"))
 def update_table(page_current, page_size):
     return df.iloc[
-        page_current * page_size:(page_current + 1)*page_size
-    ].to_dict('records')
+           page_current * page_size:(page_current + 1) * page_size
+           ].to_dict('records')
 
 
 if __name__ == '__main__':
     app.run_server(debug=True)
 
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 # # Сохранение состояния - выбора бользователя - без callback
 # # Поступление значения Input вызывает callback.
