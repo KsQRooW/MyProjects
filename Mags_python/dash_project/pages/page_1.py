@@ -1,10 +1,7 @@
-from dash import Dash, dcc, html
-import dash_bootstrap_components as dbc
-# import dash_html_components as html
-# import dash_core_components as dcc
+from dash import dcc, html
 import plotly.express as px
 from dash.dependencies import Input, Output
-import pandas as pd
+from Mags_python.dash_project.settings import app, df
 
 page_1 = [
     html.Div(
@@ -22,5 +19,5 @@ page_1 = [
                 {'label': 'Charges', 'value': 'charges'},
                 {'label': 'BMI', 'value': 'bmi'}
             ],
-            value='charges', className="dropdown", style={'margit-bottom': '32px'}
+            value='children', className="dropdown", style={'margit-bottom': '32px'}
         ), dcc.Graph(id='output_graph')], className="card")]

@@ -1,10 +1,5 @@
-from dash import Dash
+from dash import dcc, html
 import dash_bootstrap_components as dbc
-import dash_html_components as html
-import dash_core_components as dcc
-import plotly.express as px
-from dash.dependencies import Input, Output
-import pandas as pd
 
 SIDESTYLE = {
     "position": "fixed",
@@ -18,7 +13,7 @@ SIDESTYLE = {
 
 CONTSTYLE = {
     "margin-left": "18rem",
-    "margin-right": "2rem",
+    "margin-right": "3rem",
     "padding": "2rem 1rem",
 }
 
@@ -33,6 +28,7 @@ sidebar = html.Div([
                     dbc.NavLink("Analysis", href="/page1", active="exact"),
                     dbc.NavLink("The effect", href="/page2", active="exact"),
                     dbc.NavLink("Thanks", href="/page3", active="exact"),
+                    dbc.NavLink("Histograms", href="/page4", active="exact"),
                 ],
                 vertical=True, pills=True),
         ],
