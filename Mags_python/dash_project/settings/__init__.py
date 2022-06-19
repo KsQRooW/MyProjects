@@ -1,1 +1,1 @@
-from .settings import df, app
+from .settings import df, df_no_cat, app, changer
