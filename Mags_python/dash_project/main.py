@@ -2,19 +2,20 @@ from dash.dependencies import Input, Output, State
 from math import ceil
 
 from pages import *
-from settings import app, df, df_no_cat
+from settings import app, df_no_cat, df
 from models import hist, dist, box, scatter, bar, stat_table, view_table, logic
 
 _ = None
 app.layout = sidebar
-
 
 # # # Navigating # # #
 
 
 @app.callback(
     Output("page-content", "children"),
-    [Input("url", "pathname")]
+    [Input("url", "pathname"),
+     ],
+    prevent_initial_call=True
 )
 def pagecontent(pathname):
     if pathname == "/hist":
@@ -358,8 +359,23 @@ def validate_input_2(value):
 
 
 # TODO: добавить кнопку Clear для очистки все параметров сортировки
-def clear_all_inputs():
-    ...
+@app.callback(
+    Output("view_table_criterion_numb_1", "value"),
+    Output("view_table_dropdown_menu_symbol_numb_1", "value"),
+    Output("view_table_param_numb_1", "value"),
+    Output("view_table_dropdown_menu_logic_1", "value"),
+    Output("view_table_criterion_numb_2", "value"),
+    Output("view_table_dropdown_menu_symbol_numb_2", "value"),
+    Output("view_table_param_numb_2", "value"),
+    Output("view_table_dropdown_menu_logic_2", "value"),
+    Output("view_table_criterion_categ_1", "value"),
+    Output("view_table_dropdown_menu_symbol_categ_1", "value"),
+    Output("view_table_dropdown_menu_categ_params", "value"),
+
+    Input("view_table_clear_button", "n_clicks")
+)
+def clear_all_inputs(_n_clicks):
+    return [None] * 11
 
 
 if __name__ == '__main__':

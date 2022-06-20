@@ -1,4 +1,4 @@
-from dash import html, dcc, dash_table
+from dash import html, dcc
 import dash_bootstrap_components as dbc
 
 switch_stat_table_options = [
@@ -38,6 +38,12 @@ div_flex = {
     "alignItems": "center"
 }
 
+div_jstf = {
+    "display": "flex",
+    "alignItems": "center",
+    "justify-content": "space-between"
+}
+
 dropdown_menu_items_params = [
     dbc.DropdownMenuItem("sex", id="dropdown_button_sex", n_clicks=0),
     dbc.DropdownMenuItem("smoker", id="dropdown_button_smoker", n_clicks=0),
@@ -75,6 +81,10 @@ input_style_10rem = {
 
 input_style_6rem = {
     "width": "6rem"
+}
+
+button_style_5rem = {
+    "width": "5rem"
 }
 
 dropdown_numb_options = [
@@ -138,9 +148,13 @@ stat_page = [
                              style=input_style_10rem)
                 # dbc.Input(style=input_style_10rem, id="view_table_param_categ_1", valid=True),
             ], style=div_flex),
-            dbc.Button("Update", id="view_table_update_button", outline=True, color="primary", className="me-1",
-                       n_clicks=0),
-        ]),
+            html.Div([
+                dbc.Button("Update", id="view_table_update_button", outline=True, color="success",
+                           n_clicks=0, style=button_style_5rem),
+                dbc.Button("Clear", id="view_table_clear_button", outline=True, color="primary",
+                           n_clicks=0, style=button_style_5rem),
+            ], style=div_jstf),
+        ], style={"width": "min-content"}),
         html.Div([
             dbc.FormText("Number of lines"),
             dbc.Input(id="page_size_view_table", type="number", value=10, style=input_style_6rem, size="sm", min=1),
