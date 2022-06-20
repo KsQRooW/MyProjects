@@ -2,7 +2,7 @@ from dash.dependencies import Input, Output, State
 from math import ceil
 
 from pages import *
-from settings import app, df_no_cat, df
+from settings import app, df_uploaded, df
 from models import hist, dist, box, scatter, bar, stat_table, view_table, logic
 
 _ = None
@@ -18,20 +18,21 @@ app.layout = sidebar
     prevent_initial_call=True
 )
 def pagecontent(pathname):
-    if pathname == "/hist":
-        return hist_page
+    if df_uploaded:
+        if pathname == "/hist":
+            return hist_page
 
-    elif pathname == "/box_whisk":
-        return box_whisk_page
+        elif pathname == "/box_whisk":
+            return box_whisk_page
 
-    elif pathname == "/scatter":
-        return scatter_page
+        elif pathname == "/scatter":
+            return scatter_page
 
-    elif pathname == "/bar":
-        return bar_page
+        elif pathname == "/bar":
+            return bar_page
 
-    elif pathname == "/stat":
-        return stat_page
+        elif pathname == "/stat":
+            return stat_page
 
 
 # # # Histogram # # #

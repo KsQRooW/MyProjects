@@ -39,12 +39,25 @@ hidden = {
     "display": "none"
 }
 
+modal_title_style = {
+    "font-size": 18
+}
+
+button_width_15rem = {
+    "width": "15rem"
+}
+
+href_style = {
+    "color": "white",
+    "text-decoration": "none"
+}
+
 sidebar = html.Div([
     dcc.Location(id="url"),
     html.Div(
         [
             html.Div([
-                html.H6("Analyze", className="display-3", style={'color': 'white'}),
+                html.H6(html.A("Analyze", href="http://127.0.0.1:8050", style=href_style), className="display-3"),
                 html.Hr(style={'color': 'white'}),
                 dbc.Nav(
                     [
@@ -70,41 +83,35 @@ sidebar = html.Div([
                                      html.Div(dbc.Spinner(html.Div(id="page_stat_loading"), size="sm"), style=loader)],
                                     href="/stat", active="exact",
                                     style=navlink_flex),
-                        # dbc.DropdownMenu(
-                        #             [dbc.DropdownMenuItem("age/bmi/charges"),
-                        #              dbc.DropdownMenuItem("sex/region/children/smoker")],
-                        #             label="Histograms",
-                        #             nav=True
-                        #         ),
-                        # dbc.NavLink("The effect", href="/page2", active="exact"),
-                        # dbc.NavLink("Thanks", href="/page3", active="exact"),
-                        # dbc.NavLink("Histograms", href="/page4", active="exact"),
                     ],
                     vertical=True, pills=True),
             ]),
             html.Div([
-                dbc.FormText("File name / Separator", id="input_for_uploaded_file", style=hidden),
-                dbc.Input(id="uploaded_file_info", size="sm", readonly=True, style=hidden),
-                dbc.Button("Загрузить файл_2", id="upload_file_hidden", color="primary", n_clicks=0, size="sm", style=hidden)
+                dbc.FormText("File name // Separator", id="input_for_uploaded_file"),
+                dbc.Input(id="uploaded_file_info", size="sm", readonly=True),
+
+                dbc.FormText("File path", id="sidebar_formtext_path"),
+                # dbc.Input(id="sidebar_input_path", type="file", size="sm", valid=False),
+                dcc.Upload(
+                    id='sidebar_input_path',
+                    children=html.Div([
+                        'Drag and Drop or ',
+                        html.A('Select Files')
+                    ]), ),
+
+
+                dbc.FormText("Separator", id="sidebar_formtext_symbol"),
+                dbc.Input(id="sidebar_input_symbol", size="sm", valid=False),
+
+
+
+                dbc.Button("Загрузить файл", id="upload_file_button_hidden", color="primary", n_clicks=0, size="sm",
+                           style=button_width_15rem)
             ])
         ],
         style=SIDESTYLE
     ),
     html.Div([
         html.Div(id="page-content", children=[], style=CONTSTYLE),
-        # dbc.Alert("Выберите файл и разделитель!", id="alert_sidebar", color="warning", style=CONTSTYLE, is_open=True)
     ]),
-    dbc.Button("Загрузить файл_1", id="upload_file_window_centered", color="primary", n_clicks=0, style=CONTSTYLE),
-    dbc.Modal([
-        dbc.ModalBody([
-            dbc.FormText("File path", id="sidebar_formtext_path"),
-            dbc.Input(id="sidebar_input_path", type="file", size="sm", valid=False),
-
-            dbc.FormText("Separator", id="sidebar_formtext_symbol"),
-            dbc.Input(id="sidebar_input_symbol", size="sm", valid=False)
-        ]),
-        dbc.ModalFooter(
-            dbc.Button("Применить", id="upload_file_modal", color="primary", n_clicks=0, size="sm")
-        )
-    ], id="modal_window", centered=True, is_open=False)
 ])

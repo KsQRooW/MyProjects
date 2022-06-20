@@ -11,37 +11,11 @@ radio_options_full = [
     {"label": "Children", "value": "children"}
 ]
 
-radio_options_category = [
-    {"label": "Sex", "value": "sex"},
-    {"label": "Smoker", "value": "smoker"},
-    {"label": "Region", "value": "region"}
-]
-
-radio_options_category_disabled = [
-    {"label": "Sex", "value": "sex", "disabled": True},
-    {"label": "Smoker", "value": "smoker", "disabled": True},
-    {"label": "Region", "value": "region", "disabled": True}
-]
-
-radio_options_numb = [
-    {"label": "Age", "value": "age"},
-    {"label": "BMI", "value": "bmi"},
-    {"label": "Charges", "value": "charges"},
-    {"label": "Children", "value": "children"}
-]
-
 radio_options_part = [
     {"label": "Sex", "value": "sex"},
     {"label": "Smoker", "value": "smoker"},
     {"label": "Region", "value": "region"},
     {"label": "Children", "value": "children"}
-]
-
-radio_options_part_disabled = [
-    {"label": "Sex", "value": "sex", "disabled": True},
-    {"label": "Smoker", "value": "smoker", "disabled": True},
-    {"label": "Region", "value": "region", "disabled": True},
-    {"label": "Children", "value": "children", "disabled": True}
 ]
 
 checklist_options = [
@@ -50,11 +24,6 @@ checklist_options = [
 
 graf_flex = {
     "flex": "1"
-}
-
-radio_items = {
-    "margin-top": "0.5rem",
-    "margin-bottom": "0.5rem",
 }
 
 div_flex = {
@@ -68,13 +37,6 @@ bar_page = [
                     style={'textAlign': 'center'})
         ], className='header'),
 
-    # dbc.Label("Choose param for Y-axis"),
-    # dbc.RadioItems(
-    #     id="bar_radio_y",
-    #     options=radio_options_full,
-    #     value="age"
-    # ),
-
     dbc.Label("Choose param for X-axis"),
     dbc.RadioItems(
         id="bar_radio_x",
@@ -82,7 +44,6 @@ bar_page = [
         value="bmi"
     ),
 
-    # dbc.Label("Choose param for grouping"),
     dbc.Checklist(id="bar_checklist", options=checklist_options, value=False, switch=True),
     dbc.RadioItems(
         id="bar_radio_category_color",
