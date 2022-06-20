@@ -69,4 +69,7 @@ class Logic:
             symbol = self._swap_symb[symbol]
             self._full_expr.append(f"{symbol[0]}({self.mask}['{name}']{symbol[1]}({val}))")
         else:
-            self._full_expr.append(f"({self.mask}['{name}'] {symbol} {float(val)})")
+            if isinstance(val, str):
+                self._full_expr.append(f"({self.mask}['{name}'] {symbol} '{val}')")
+            else:
+                self._full_expr.append(f"({self.mask}['{name}'] {symbol} {float(val)})")

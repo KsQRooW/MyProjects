@@ -59,14 +59,19 @@ def input_file(_n_clicks, contents, filename, sep):
     return valid['sep'], not valid['sep'], None
 
 
+def form_df_not_cat(df):
+    df_no_cat = df.copy()
+
+    changer_sex = {'female': 1, 'male': 2}
+    df_no_cat['sex'] = df['sex'].map(lambda x: changer_sex[x])
+
+    changer_smoker = {'no': 1, 'yes': 2}
+    df_no_cat['smoker'] = df['smoker'].map(lambda x: changer_smoker[x])
+
+    changer_region = {'northeast': 1, 'southwest': 2, 'northwest': 3, 'southeast': 4}
+    df_no_cat['region'] = df['region'].map(lambda x: changer_region[x])
+    return df_no_cat
+
+
 df = read_csv(f'{os.getcwd()}\\assets\\insurance.csv', sep=',')
-df_no_cat = df.copy()
-
-changer_sex = {'female': 1, 'male': 2}
-df_no_cat['sex'] = df['sex'].map(lambda x: changer_sex[x])
-
-changer_smoker = {'no': 1, 'yes': 2}
-df_no_cat['smoker'] = df['smoker'].map(lambda x: changer_smoker[x])
-
-changer_region = {'northeast': 1, 'southwest': 2, 'northwest': 3, 'southeast': 4}
-df_no_cat['region'] = df['region'].map(lambda x: changer_region[x])
+df_no_cat = form_df_not_cat(df)

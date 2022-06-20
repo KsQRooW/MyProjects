@@ -18,6 +18,13 @@ radio_options_part = [
     {"label": "Children", "value": "children"}
 ]
 
+radio_options_part_disabled = [
+    {"label": "Sex", "value": "sex", "disabled": True},
+    {"label": "Smoker", "value": "smoker", "disabled": True},
+    {"label": "Region", "value": "region", "disabled": True},
+    {"label": "Children", "value": "children", "disabled": True}
+]
+
 checklist_options = [
     {"label": "Category group?", "value": False}
 ]

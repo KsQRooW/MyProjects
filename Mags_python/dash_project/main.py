@@ -2,7 +2,7 @@ from dash.dependencies import Input, Output, State
 from math import ceil
 
 from pages import *
-from settings import app, df_uploaded, df
+from settings import app, df_uploaded, df, df_no_cat, form_df_not_cat
 from models import hist, dist, box, scatter, bar, stat_table, view_table, logic
 
 _ = None
@@ -19,9 +19,10 @@ app.layout = sidebar
 )
 def pagecontent(pathname):
     if df_uploaded.get('file'):
-        global df
+        global df, df_no_cat
         print('pagecontentas-d-das-ds-sad-das-das-das-das-sa-dsa-', df_uploaded['df'])
         df = df_uploaded['df']
+        df_no_cat = form_df_not_cat(df)
         if pathname == "/hist":
             return hist_page
 

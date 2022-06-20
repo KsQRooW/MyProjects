@@ -149,9 +149,9 @@ stat_page = [
                 # dbc.Input(style=input_style_10rem, id="view_table_param_categ_1", valid=True),
             ], style=div_flex),
             html.Div([
-                dbc.Button("Update", id="view_table_update_button", outline=True, color="success",
-                           n_clicks=0, style=button_style_5rem),
                 dbc.Button("Clear", id="view_table_clear_button", outline=True, color="primary",
+                           n_clicks=0, style=button_style_5rem),
+                dbc.Button("Update", id="view_table_update_button", outline=True, color="success",
                            n_clicks=0, style=button_style_5rem),
             ], style=div_jstf),
         ], style={"width": "min-content"}),
