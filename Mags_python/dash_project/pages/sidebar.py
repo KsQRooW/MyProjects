@@ -95,9 +95,9 @@ sidebar = html.Div([
                 dcc.Upload(
                     id='sidebar_input_path',
                     children=html.Div([
-                        'Drag and Drop or ',
-                        html.A('Select Files')
-                    ]), ),
+                        'Select file',
+
+                    ]), style={'borderStyle': 'dashed', 'color': "white", 'textAlign': 'center', 'borderWidth': '1px'}),
 
 
                 dbc.FormText("Separator", id="sidebar_formtext_symbol"),

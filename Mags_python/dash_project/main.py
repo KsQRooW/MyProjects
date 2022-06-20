@@ -18,7 +18,10 @@ app.layout = sidebar
     prevent_initial_call=True
 )
 def pagecontent(pathname):
-    if df_uploaded:
+    if df_uploaded.get('file'):
+        global df
+        print('pagecontentas-d-das-ds-sad-das-das-das-das-sa-dsa-', df_uploaded['df'])
+        df = df_uploaded['df']
         if pathname == "/hist":
             return hist_page
 

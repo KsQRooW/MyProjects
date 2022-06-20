@@ -2,7 +2,6 @@ import base64
 import io
 import os.path
 
-import dash
 from dash import Dash, Input, Output, State
 import dash_bootstrap_components as dbc
 from pandas import read_csv, read_excel
@@ -22,9 +21,7 @@ def upload_button(_n_clicks_):
 
 
 @app.callback(
-    # Output("sidebar_input_path", "valid"),
     Output("sidebar_input_symbol", "valid"),
-    # Output("sidebar_input_path", "invalid"),
     Output("sidebar_input_symbol", "invalid"),
 
     Output("uploaded_file_info", "value"),
@@ -45,10 +42,12 @@ def input_file(_n_clicks, contents, filename, sep):
     decoded = base64.b64decode(content_string)
     if 'csv' in filename:
         # Assume that the user uploaded a CSV file
-        df = read_csv(str(io.StringIO(decoded.decode('utf-8'))))
+        df_uploaded['df'] = read_csv(io.StringIO(decoded.decode('utf-8')), sep=sep)
+        print('csv', df_uploaded['df'])
     elif 'xls' in filename or 'xlsx' in filename:
         # Assume that the user uploaded an excel file
-        df = read_excel(io.BytesIO(decoded))
+        df_uploaded['df'] = read_excel(io.BytesIO(decoded), 0)
+        print('xls', df_uploaded['df'])
 
     print(decoded)
     print(os.getcwd() + '\\assets\\' + os.path.basename(filename))
@@ -60,7 +59,7 @@ def input_file(_n_clicks, contents, filename, sep):
     return valid['sep'], not valid['sep'], None
 
 
-df = read_csv('../assets/insurance_2.csv', sep=',')
+df = read_csv(f'{os.getcwd()}\\assets\\insurance.csv', sep=',')
 df_no_cat = df.copy()
 
 changer_sex = {'female': 1, 'male': 2}
