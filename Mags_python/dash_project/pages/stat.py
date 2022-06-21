@@ -87,6 +87,11 @@ button_style_5rem = {
     "width": "5rem"
 }
 
+button_style_update = {
+    "width": "5rem",
+    "margin-left": "20.75rem"
+}
+
 dropdown_numb_options = [
     {'label': 'Age', 'value': 'age'},
     {'label': 'BMI', 'value': 'bmi'},
@@ -152,9 +157,9 @@ stat_page = [
                 dbc.Button("Clear", id="view_table_clear_button", outline=True, color="primary",
                            n_clicks=0, style=button_style_5rem),
                 dbc.Button("Update", id="view_table_update_button", outline=True, color="success",
-                           n_clicks=0, style=button_style_5rem),
-            ], style=div_jstf),
-        ], style={"width": "min-content"}),
+                           n_clicks=0, style=button_style_update),
+            ]),
+        ]),
         html.Div([
             dbc.FormText("Number of lines"),
             dbc.Input(id="page_size_view_table", type="number", value=10, style=input_style_6rem, size="sm", min=1),

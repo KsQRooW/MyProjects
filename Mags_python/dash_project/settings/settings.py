@@ -43,14 +43,10 @@ def input_file(_n_clicks, contents, filename, sep):
     if 'csv' in filename:
         # Assume that the user uploaded a CSV file
         df_uploaded['df'] = read_csv(io.StringIO(decoded.decode('utf-8')), sep=sep)
-        print('csv', df_uploaded['df'])
     elif 'xls' in filename or 'xlsx' in filename:
         # Assume that the user uploaded an excel file
         df_uploaded['df'] = read_excel(io.BytesIO(decoded), 0)
-        print('xls', df_uploaded['df'])
 
-    print(decoded)
-    print(os.getcwd() + '\\assets\\' + os.path.basename(filename))
     if filename and sep:
         df_uploaded['file'] = os.path.basename(filename)
         # return True, True, False, False, f"{os.path.basename(file)} // {sep}"

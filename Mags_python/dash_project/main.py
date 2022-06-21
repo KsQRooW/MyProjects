@@ -20,7 +20,6 @@ app.layout = sidebar
 def pagecontent(pathname):
     if df_uploaded.get('file'):
         global df, df_no_cat
-        print('pagecontentas-d-das-ds-sad-das-das-das-das-sa-dsa-', df_uploaded['df'])
         df = df_uploaded['df']
         df_no_cat = form_df_not_cat(df)
         if pathname == "/hist":
@@ -61,7 +60,7 @@ def hist_page_interface(value: str, cols: str):
     styles = [graf_flex, graf_flex]
 
     cols = cols.split()
-    print(f"{value}: {cols}")  # Для отладки FIXME: удалить
+    # print(f"{value}: {cols}")  # Для отладки
 
     if value == 'Histogram':
         res = hist(df, cols).plots
@@ -384,4 +383,4 @@ def clear_all_inputs(_n_clicks):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
