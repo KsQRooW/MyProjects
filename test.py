@@ -7,3 +7,4 @@ while 1:
     a = a.replace('\r', ' ')
     a = a.replace('\t', ' ')
     pyperclip.copy(a)
+...
