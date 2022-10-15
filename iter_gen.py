@@ -24,7 +24,7 @@
 #     except StopIteration:
 #         break
 
-# # # # # # # # # # #
+# # # # # # # # # # # qwe
 # class MyIter:
 #     """
 #     Пример с __iter__ / __getitem__
