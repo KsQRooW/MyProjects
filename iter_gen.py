@@ -1,4 +1,4 @@
-# iter(a) -> __iter__
+# iter(a) -> __iter__ qwe
 # next(a) -> __next__
 
 # Чтобы итерироваться по объекту - нужен в объекте магический метод __iter__ или __getitem__
@@ -24,7 +24,7 @@
 #     except StopIteration:
 #         break
 
-# # # # # # # # # # #
+# # # # # # # # # # # qwe
 # class MyIter:
 #     """
 #     Пример с __iter__ / __getitem__
