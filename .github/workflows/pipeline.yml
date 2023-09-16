@@ -1,25 +1,25 @@
-#name: Linting and Tests
-#
-#on: [pull_request]
-#
-#jobs:
-#  ruff:
-#    uses: ./.github/workflows/job.yml
-#    with:
-#      job_name: "ruff"
-#
-#  deptry:
-#    uses: ./.github/workflows/job.yml
-#    with:
-#      job_name: "deptry"
-#
-#  mypy:
-#    uses: ./.github/workflows/job.yml
-#    with:
-#      job_name: "mypy"
-#
-#  test:
-#    needs: [ruff, deptry, mypy]
-#    uses: ./.github/workflows/job.yml
-#    with:
-#      job_name: "pytest"
+name: Linting and Tests
+
+on: [pull_request]
+
+jobs:
+  ruff:
+    uses: ./.github/workflows/job.yml
+    with:
+      job_name: "ruff"
+
+  deptry:
+    uses: ./.github/workflows/job.yml
+    with:
+      job_name: "deptry"
+
+  mypy:
+    uses: ./.github/workflows/job.yml
+    with:
+      job_name: "mypy"
+
+  test:
+    needs: [ruff, deptry, mypy]
+    uses: ./.github/workflows/job.yml
+    with:
+      job_name: "pytest"
