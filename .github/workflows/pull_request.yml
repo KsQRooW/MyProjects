@@ -11,7 +11,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Prepare Environment
-        uses: ./.github/actions/_prepare.yml
+        uses: ./.github/actions/prepare
 
       - name: Linting
         run: ruff .
@@ -21,7 +21,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Prepare Environment
-        uses: ./.github/actions/_prepare.yml
+        uses: ./.github/actions/prepare
 
       - name: Linting
         run: deptry .
@@ -31,7 +31,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Prepare Environment
-        uses: ./.github/actions/_prepare.yml
+        uses: ./.github/actions/prepare
 
       - name: Type checking
         run: mypy .
@@ -41,7 +41,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Prepare Environment
-        uses: ./.github/actions/_prepare.yml
+        uses: ./.github/actions/prepare
 
       - name: Testing
         run: pytest .
