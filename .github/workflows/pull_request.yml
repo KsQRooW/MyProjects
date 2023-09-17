@@ -1,53 +1,8 @@
 name: Linting and Tests
 
-on:
-  pull_request:
-    paths:
-      - '**.py'
+on: pull_request
 
 jobs:
-  ruff:
-    if: github.
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Prepare Environment
-        uses: ./.github/actions/prepare
-
-      - name: Linting
-        run: ruff .
-
-  deptry:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Prepare Environment
-        uses: ./.github/actions/prepare
-
-      - name: Linting
-        run: deptry .
-
-  mypy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Prepare Environment
-        uses: ./.github/actions/prepare
-
-      - name: Type checking
-        run: mypy .
-
-  test:
-    needs: [ruff, deptry, mypy]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Prepare Environment
-        uses: ./.github/actions/prepare
-
-      - name: Testing
-        run: pytest .
+  linting-and-tests:
+    name: Linting and Tests
+    uses: KsQRooW/test-workflow/.github/workflows/pull_request.yml
