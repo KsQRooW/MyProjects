@@ -2,15 +2,16 @@ name: Linting and Tests
 
 on:
   pull_request:
-#    paths:
-#      - '**.py'
+    paths:
+      - '**.py'
 
 jobs:
   ruff:
+    if: github.
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v3
+
       - name: Prepare Environment
         uses: ./.github/actions/prepare
 
@@ -19,9 +20,9 @@ jobs:
 
   deptry:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v3
+
       - name: Prepare Environment
         uses: ./.github/actions/prepare
 
@@ -30,9 +31,9 @@ jobs:
 
   mypy:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v3
+
       - name: Prepare Environment
         uses: ./.github/actions/prepare
 
@@ -40,10 +41,11 @@ jobs:
         run: mypy .
 
   test:
+    needs: [ruff, deptry, mypy]
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v3
+
       - name: Prepare Environment
         uses: ./.github/actions/prepare
 
