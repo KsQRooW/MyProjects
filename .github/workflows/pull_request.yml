@@ -1,6 +1,9 @@
 name: Linting and Tests
 
-on: pull_request
+on:
+  pull_request:
+    branches:
+      - ${{ github.event.pull_request.base.ref }}
 
 jobs:
   linters:
