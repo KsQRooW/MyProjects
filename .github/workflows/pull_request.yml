@@ -1,0 +1,47 @@
+name: Linting and Tests
+
+on:
+  pull_request:
+#    paths:
+#      - '**.py'
+
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Prepare Environment
+        uses: ./.github/actions/_prepare.yml
+
+      - name: Linting
+        run: ruff .
+
+  deptry:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Prepare Environment
+        uses: ./.github/actions/_prepare.yml
+
+      - name: Linting
+        run: deptry .
+
+  mypy:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Prepare Environment
+        uses: ./.github/actions/_prepare.yml
+
+      - name: Type checking
+        run: mypy .
+
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Prepare Environment
+        uses: ./.github/actions/_prepare.yml
+
+      - name: Testing
+        run: pytest .
