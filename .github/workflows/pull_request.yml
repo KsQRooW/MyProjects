@@ -3,6 +3,11 @@ name: Linting and Tests
 on: pull_request
 
 jobs:
-  linting-and-tests:
-    name: Linting and Tests
-    uses: KsQRooW/test-workflow/.github/workflows/pull_request.yml@main
+  linters:
+    name: Linting
+    uses: KsQRooW/test-workflow/.github/workflows/linters.yml@main
+
+  tests:
+    name: Testing
+    needs: linters
+    uses: KsQRooW/test-workflow/.github/workflows/tests.yml@main
