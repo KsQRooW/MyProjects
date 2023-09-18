@@ -3,12 +3,13 @@ name: Linting and Tests
 on:
   pull_request:
     branches:
-      - ${{ github.event.pull_request.base.ref }}
+      - ${{ github.base_ref }}
 
 jobs:
   linters:
     name: Linting
     uses: KsQRooW/test-workflow/.github/workflows/linters.yml@main
+
 
   tests:
     name: Testing
