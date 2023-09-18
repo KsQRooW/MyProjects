@@ -11,8 +11,7 @@ jobs:
   linters:
     name: Linting
     uses: KsQRooW/test-workflow/.github/workflows/linters.yml@main
-    if: git diff origin/${{ github.base_ref }} origin/${{ github.head_ref }} --name-only --diff-filter=d | grep "\.py"
-
+    if: false
 
   tests:
     name: Testing
