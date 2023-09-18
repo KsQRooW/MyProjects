@@ -3,12 +3,15 @@ name: Linting and Tests
 on:
   pull_request:
     branches:
-      - ${{ github.base_ref }}
+      - develop
+      - staging
+      - main
 
 jobs:
   linters:
     name: Linting
     uses: KsQRooW/test-workflow/.github/workflows/linters.yml@main
+    if: git diff origin/${{ github.base_ref }} origin/${{ github.head_ref }} --name-only --diff-filter=d | grep "\.py"
 
 
   tests:
