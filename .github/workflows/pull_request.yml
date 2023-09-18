@@ -11,9 +11,7 @@ jobs:
   linters:
     name: Linting
     uses: KsQRooW/test-workflow/.github/workflows/linters.yml@main
-    if: false
 
   tests:
     name: Testing
-    needs: linters
     uses: KsQRooW/test-workflow/.github/workflows/tests.yml@main
