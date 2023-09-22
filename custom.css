@@ -1,0 +1,16 @@
+:root {
+  --gitlab-orange: #fa6d26;
+  --gitlab-purple-dark: #380d74;
+  --gitlab-purple-light: #584087;
+}
+
+[data-md-color-scheme="gitlab-light"] {
+  /*--md-default-bg-color--dark: var(--gitlab-orange);*/
+  --md-primary-fg-color: var(--gitlab-purple-light);
+  --md-typeset-a-color: var(--gitlab-purple-dark);
+  --md-accent-fg-color: var(--gitlab-orange);
+
+  /*--md-code-hl-color: rgb(255, 70, 0);*/
+  /*--md-code-fg-color: #e05e5e;*/
+  /*--md-code-bg-color: #9d0cb2;*/
+}
