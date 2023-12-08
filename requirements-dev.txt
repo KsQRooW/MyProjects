@@ -1,0 +1,6 @@
+ruff
+pytest
+mypy
+deptry
+mkdocs-material
+mdx_include

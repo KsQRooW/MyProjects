@@ -1,0 +1,17 @@
+name: Linting and Tests
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - staging
+      - main
+
+jobs:
+  linters:
+    name: Linting
+    uses: KsQRooW/test-workflow/.github/workflows/linters.yml@main
+
+  tests:
+    name: Testing
+    uses: KsQRooW/test-workflow/.github/workflows/tests.yml@main
